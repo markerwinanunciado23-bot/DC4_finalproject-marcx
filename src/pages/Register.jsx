@@ -51,7 +51,11 @@ export default function Register() {
       navigate("/dashboard");
     } catch (err) {
       setErrors(err.response?.data?.errors || {
-        general: err.response?.data?.message || "Registration failed.",
+        general:
+          err.response?.data?.message ||
+          (err.request && !err.response
+            ? "Unable to connect to the API. Please make sure the server is running and try again."
+            : "Registration failed."),
       });
     } finally {
       setLoading(false);
